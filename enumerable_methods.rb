@@ -1,7 +1,7 @@
 # Project 2: Enumerable Methods
 
 module Enumerable
-  def my_each(&block)
+  def my_each(arr)
     arr.length.times do |count|
       puts yield(arr[count])
     end
