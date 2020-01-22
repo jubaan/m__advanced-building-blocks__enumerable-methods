@@ -40,4 +40,11 @@ module Enumerable
       return true if proc.call(self[i]) != true
     end
   end
+
+  def my_map(&proc)
+    my_each do |i|
+      self[i] = proc.call(self[i])
+    end
+    self
+  end
 end
