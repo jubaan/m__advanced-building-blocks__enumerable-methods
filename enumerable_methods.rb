@@ -14,4 +14,12 @@ module Enumerable
     end
     self
   end
+
+  def my_select(&proc)
+    selection = []
+    length.times do |i|
+      selection.push(self[i]) if proc.call(self[i])
+    end
+    selection
+  end
 end
