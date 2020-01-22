@@ -1,11 +1,14 @@
 # Project 2: Enumerable Methods
 
 module Enumerable
-  def my_each(arr)
-    arr.length.times do |count|
-      puts yield(arr[count])
+
+  public
+
+  def my_each
+    length.times do |i|
+      yield(self[i])
     end
-    arr
+    self
   end
 
   # def my_each_with_index
