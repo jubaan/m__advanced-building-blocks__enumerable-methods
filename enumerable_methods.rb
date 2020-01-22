@@ -22,4 +22,10 @@ module Enumerable
     end
     selection
   end
+ a
+  def my_all?(&proc)
+    length.times do |i|
+      return false if proc.call(self[i]) == false
+    end
+  end
 end
