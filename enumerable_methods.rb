@@ -9,7 +9,7 @@ module Enumerable
   end
 
   def my_each_with_index(&proc)
-    length.times do |item, i|
+    length.times do |item, _i|
       proc.call(item)
     end
     self
@@ -46,5 +46,18 @@ module Enumerable
       self[i] = proc.call(self[i])
     end
     self
+  end
+
+  def my_inject(*arr)
+    init = arr.size.positive?
+    result = init ? arr[0] : self[0]
+    drop(init ? 0 : 1).my_each do |item|
+      result = proc.call(result, item)
+    end
+    result
+  end
+
+  def multiply_els(&proc)
+    my_inject { |result, number| result * number }
   end
 end
