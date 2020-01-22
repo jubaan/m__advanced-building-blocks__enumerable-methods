@@ -34,4 +34,10 @@ module Enumerable
       return true if proc.call(self[i]) == true
     end
   end
+
+  def my_none?(&proc)
+    length.times do |i|
+      return true if proc.call(self[i]) != true
+    end
+  end
 end
