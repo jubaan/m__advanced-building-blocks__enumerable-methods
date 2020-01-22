@@ -57,7 +57,7 @@ module Enumerable
     result
   end
 
-  def multiply_els(&proc)
-    my_inject { |result, number| result * number }
+  def multiply_els(*arr)
+    my_inject { |x, y| x * y }
   end
 end
