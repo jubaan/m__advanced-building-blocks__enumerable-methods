@@ -7,4 +7,11 @@ module Enumerable
     end
     self
   end
+
+  def my_each_with_index(&proc)
+    length.times do |item, i|
+      proc.call(item)
+    end
+    self
+  end
 end
