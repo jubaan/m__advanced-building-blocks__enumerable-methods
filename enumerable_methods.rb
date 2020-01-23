@@ -46,12 +46,16 @@ module Enumerable
   #   end
   # end
 
-  # def my_map(&proc)
-  #   my_each do |i|
-  #     self[i] = proc.call(self[i])
-  #   end
-  #   self
-  # end
+  def my_map(&proc)
+    if block_given?
+      mapped = []
+      length.times do |i|
+        mapped.push(proc.call(self[i]))
+      end
+      return mapped
+    end
+    to_enum
+  end
 
   # def my_inject(*arr)
   #   init = arr.size.positive?
