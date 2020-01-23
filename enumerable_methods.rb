@@ -28,11 +28,15 @@ module Enumerable
     to_enum
   end
 
-  # def my_all?(&proc)
-  #   length.times do |i|
-  #     return false if proc.call(self[i]) == false
-  #   end
-  # end
+  def my_all?(&proc)
+    switch = true
+    if block_given?
+      length.times do |i|
+        switch = false if proc.call(self[i]) == false
+      end
+    end
+    switch
+  end
 
   # def my_any?(&proc)
   #   length.times do |i|
@@ -57,14 +61,34 @@ module Enumerable
     to_enum
   end
 
-  # def my_inject(*arr)
-  #   init = arr.size.positive?
-  #   result = init ? arr[0] : self[0]
-  #   drop(init ? 0 : 1).my_each do |item|
-  #     result = proc.call(result, item)
-  #   end
-  #   result
-  # end
+  def my_inject(_result, _op, &proc)
+    if op.nil? && proc.nil?
+      op = result
+      result = nil
+    end
+
+    proc = case op
+           when Symbol
+             ->(key, value) { key.send(op, value) }
+           when nil
+             proc
+           else
+             p 'something went wrong'
+           end
+
+    if result.nil?
+      ignore_first = true
+      result = first
+    end
+
+    index = 0
+
+    my_each do |item|
+      result = proc.call(result, item) unless ignore_first && index.zero?
+      index += 1
+    end
+    result
+  end
 
   # def multiply_els(*arr)
   #   my_inject { |x, y| x * y }
