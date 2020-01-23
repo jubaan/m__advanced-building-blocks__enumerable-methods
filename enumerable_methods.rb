@@ -17,13 +17,16 @@ module Enumerable
     to_enum
   end
 
-  # def my_select(&proc)
-  #   selection = []
-  #   length.times do |i|
-  #     selection.push(self[i]) if proc.call(self[i])
-  #   end
-  #   selection
-  # end
+  def my_select(&proc)
+    if block_given?
+      selection = []
+      length.times do |i|
+        selection.push(self[i]) if proc.call(self[i])
+      end
+      return self
+    end
+    to_enum
+  end
 
   # def my_all?(&proc)
   #   length.times do |i|
