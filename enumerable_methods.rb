@@ -61,33 +61,13 @@ module Enumerable
     to_enum
   end
 
-  def my_inject(_result, _op, &proc)
-    if op.nil? && proc.nil?
-      op = result
-      result = nil
+  def my_inject(accumulator, operator = nil, &block)
+    block ||= ->(acc, value) { acc.send(operator, value) }
+
+    my_each do |value|
+      accumulator = block.call(accumulator, value)
     end
-
-    proc = case op
-           when Symbol
-             ->(key, value) { key.send(op, value) }
-           when nil
-             proc
-           else
-             p 'something went wrong'
-           end
-
-    if result.nil?
-      ignore_first = true
-      result = first
-    end
-
-    index = 0
-
-    my_each do |item|
-      result = proc.call(result, item) unless ignore_first && index.zero?
-      index += 1
-    end
-    result
+    accumulator
   end
 
   # def multiply_els(*arr)
