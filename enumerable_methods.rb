@@ -1,5 +1,3 @@
-require 'minitest/pride'
-
 # Project 2: Enumerable Methods
 module Enumerable
   def my_each(&block)
@@ -24,8 +22,28 @@ module Enumerable
     mapped = []
     my_each { |item| mapped << block.call(item) } and return mapped if block
   end
+
+  def my_inject(acc, operator = nil, &block)
+    if operator.nil? && block.nil?
+      operator = acc
+      acc = nil
+    end
+
+    block = case operator
+            when Symbol
+              ->(a, value) { a.send(operator, value) }
+            when nil
+              block
+    end
+    if acc.nil?
+      ignore_first = true
+      acc = first
+    end
+    index = 0
+    my_each do |item|
+      acc = block.call(acc, item) unless ignore_first && index.zero?
+      index += 1
+    end
+    acc
+  end
 end
-
-
-array = [1,2,5,8,7,98,4]
-p array.my_each_with_index {|x| x * 2}
