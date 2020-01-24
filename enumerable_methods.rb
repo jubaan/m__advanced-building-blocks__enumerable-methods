@@ -16,4 +16,10 @@ module Enumerable
     my_each { |item| selection << item if block.call(item) }
     selection
   end
+
+  def my_map(&block)
+    mapped = []
+    my_each { |item| mapped << block.call(item) } and return mapped if block_given?
+    to_enum
+  end
 end
