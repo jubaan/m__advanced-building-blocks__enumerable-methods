@@ -34,7 +34,7 @@ module Enumerable
               ->(a, value) { a.send(operator, value) }
             when nil
               block
-    end
+            end
     if acc.nil?
       ignore_first = true
       acc = first
