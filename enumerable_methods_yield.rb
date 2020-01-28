@@ -16,7 +16,7 @@ module Enumerable
     to_enum
   end
 
-  def my_map
+  def my_map(&block)
     mapped = []
     my_each { |item| mapped << yield(item) if yield(item) != 0 } and return mapped if block_given?
     to_enum
