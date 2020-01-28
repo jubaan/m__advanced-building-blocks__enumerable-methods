@@ -1,25 +1,24 @@
 # Project 2: Enumerable Methods
 module Enumerable
   def my_each(&block)
+    size.times { |i| block.call(self[i]) } and return self if block
     to_enum
-    length.times { |i| block.call(self[i]) } and self if block
   end
 
   def my_each_with_index(&block)
+    my_each { |idx| block.call(self[idx], idx) } and return self if block_given?
     to_enum
-    my_each { |item| block.call(item) } if block
   end
 
   def my_select(&block)
-    to_enum unless block
     selection = []
-    my_each { |item| selection << item if block.call(item) }
-    selection
+    my_each { |item| selection << item if block.call(item) } and return selection if block_given?
+    to_enum
   end
 
-  def my_map(&block)
-    to_enum
+ def my_map(&block)
     mapped = []
-    my_each { |item| mapped << block.call(item) } and return mapped if block
+    my_each { |item| mapped << yield(item) if yield(item) != 0 } and return mapped if block_given?
+    to_enum
   end
 end
