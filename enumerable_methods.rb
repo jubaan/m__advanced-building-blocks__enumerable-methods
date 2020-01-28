@@ -34,4 +34,17 @@ module Enumerable
     end
     swap
   end
+
+  def my_any?(args = nil, &block)
+    swap = false
+    if block
+      my_each { |item| swap = true if block.call(item) }
+    elsif args.nil?
+      my_each { |item| swap = true if item }
+    else
+      my_each { |item| swap = true if args === item }
+      to_enum
+    end
+    swap
+  end
 end
