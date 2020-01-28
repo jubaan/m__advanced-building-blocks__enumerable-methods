@@ -47,4 +47,17 @@ module Enumerable
     end
     swap
   end
+
+  def my_none?(args = nil)
+    swap = false
+    if block_given?
+      my_each { |item| swap = true unless yield(item) }
+    elsif args.nil?
+      my_each { |item| swap = true unless item }
+    else
+      my_each { |item| swap = true unless args === item }
+      to_enum
+    end
+    swap
+  end
 end
