@@ -21,4 +21,17 @@ module Enumerable
     my_each { |item| mapped << yield(item) if yield(item) != 0 } and return mapped if block_given?
     to_enum
   end
+
+  def my_all?(args = nil, &block)
+    swap = true
+    if block
+      my_each { |item| swap = false unless block.call(item) }
+    elsif args.nil?
+      my_each { |item| swap = false unless self[item] }
+    else
+      my_each { |item| swap = false unless args === self[item] }
+      to_enum
+    end
+    swap
+  end
 end

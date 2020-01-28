@@ -16,9 +16,22 @@ module Enumerable
     to_enum
   end
 
-  def my_map(&block)
+  def my_map
     mapped = []
     my_each { |item| mapped << yield(item) if yield(item) != 0 } and return mapped if block_given?
     to_enum
+  end
+
+  def my_all?(args = nil)
+    swap = true
+    if block_given?
+      my_each { |item| swap = false unless yield(item) }
+    elsif args.nil?
+      my_each { |item| swap = false unless self[item] }
+    else
+      my_each { |item| swap = false unless args === self[item] }
+      to_enum
+    end
+    swap
   end
 end
