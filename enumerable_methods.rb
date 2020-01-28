@@ -60,4 +60,17 @@ module Enumerable
     end
     swap
   end
+
+  def my_count(args = nilm, &block)
+    count = 0
+    if block_given?
+      my_each { |item| count += 1 if block.call(item) }
+    elsif args.nil?
+      my_each { |item| count += 1 if self[item] }
+    else
+      size.times { |item| count +=1 if args === self[item] }
+      to_enum
+    end
+    swap
+  end
 end
