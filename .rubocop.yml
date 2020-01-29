@@ -9,7 +9,8 @@ AllCops:
 Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
-  Max: 23
+  Enable: False
+  Max: 20
 Metrics/AbcSize:
   Max: 50
 Metrics/ClassLength:
@@ -34,8 +35,6 @@ Style/CaseEquality:
   Enabled: false
 
 Performance/RedundantBlockCall:
-  Enabled: false
-Metrics/MethodLength:
   Enabled: false
 Metrics/PerceivedComplexity:
   Enabled: false
