@@ -6,7 +6,7 @@ module Enumerable
   end
 
   def my_each_with_index(&block)
-    my_each { |idx| block.call(self[idx], idx) } and return self if block_given?
+    size.times { |idx| block.call(self[idx], idx) } and return self if block_given?
     to_enum
   end
 
@@ -27,9 +27,9 @@ module Enumerable
     if block
       my_each { |item| swap = false unless block.call(item) }
     elsif args.nil?
-      my_each { |item| swap = false unless self[item] }
+      my_each { |item| swap = false unless item }
     else
-      my_each { |item| swap = false unless args === self[item] }
+      my_each { |item| swap = false unless args === item }
       to_enum
     end
     swap
@@ -48,27 +48,27 @@ module Enumerable
     swap
   end
 
-  def my_none?(args = nil, &block)
-    swap = false
-    if block
-      my_each { |item| swap = true unless block.call(item) }
-    elsif args.nil?
-      my_each { |item| swap = true unless item }
-    else
-      my_each { |item| swap = true unless args === item }
-      to_enum
+    def my_none?(args = nil, &block)
+      swap = true
+      if block
+        my_each { |item| swap = false if block.call(item) }
+      elsif args.nil?
+        my_each { |item| swap = false if item }
+      else
+        my_each { |item| swap = false if args === item }
+        to_enum
+      end
+      swap
     end
-    swap
-  end
 
   def my_count(args = nilm, &block)
     count = 0
     if block_given?
       my_each { |item| count += 1 if block.call(item) }
     elsif args.nil?
-      my_each { |item| count += 1 if self[item] }
+      my_each { |item| count += 1 if item }
     else
-      size.times { |item| count += 1 if args === self[item] }
+      my_each { |item| count += 1 if args === item }
       to_enum
     end
     swap

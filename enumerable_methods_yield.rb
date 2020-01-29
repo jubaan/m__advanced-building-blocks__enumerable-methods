@@ -6,7 +6,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    my_each { |idx| yield(self[idx], idx) } and return self if block_given?
+    size.times { |idx| yield(self[idx], idx) } and return self if block_given?
     to_enum
   end
 
@@ -27,9 +27,9 @@ module Enumerable
     if block_given?
       my_each { |item| swap = false unless yield(item) }
     elsif args.nil?
-      my_each { |item| swap = false unless self[item] }
+      my_each { |item| swap = false unless item }
     else
-      my_each { |item| swap = false unless args === self[item] }
+      my_each { |item| swap = false unless args === item }
       to_enum
     end
     swap
@@ -49,13 +49,13 @@ module Enumerable
   end
 
   def my_none?(args = nil)
-    swap = false
+    swap = true
     if block_given?
-      my_each { |item| swap = true unless yield(item) }
+      my_each { |item| swap = false if yield(item) }
     elsif args.nil?
-      my_each { |item| swap = true unless item }
+      my_each { |item| swap = false if item }
     else
-      my_each { |item| swap = true unless args === item }
+      my_each { |item| swap = false if args === item }
       to_enum
     end
     swap
@@ -66,9 +66,9 @@ module Enumerable
     if block_given?
       my_each { |item| count += 1 if yield(item) }
     elsif args.nil?
-      my_each { |item| count += 1 if self[item] }
+      my_each { |item| count += 1 if item }
     else
-      size.times { |item| count += 1 if args === self[item] }
+      my_each { |item| count += 1 if args === item }
       to_enum
     end
     swap
