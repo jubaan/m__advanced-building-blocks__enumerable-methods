@@ -48,18 +48,18 @@ module Enumerable
     swap
   end
 
-    def my_none?(args = nil, &block)
-      swap = true
-      if block
-        my_each { |item| swap = false if block.call(item) }
-      elsif args.nil?
-        my_each { |item| swap = false if item }
-      else
-        my_each { |item| swap = false if args === item }
-        to_enum
-      end
-      swap
+  def my_none?(args = nil, &block)
+    swap = true
+    if block
+      my_each { |item| swap = false if block.call(item) }
+    elsif args.nil?
+      my_each { |item| swap = false if item }
+    else
+      my_each { |item| swap = false if args === item }
+      to_enum
     end
+    swap
+  end
 
   def my_count(args = nilm, &block)
     count = 0

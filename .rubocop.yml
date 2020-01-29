@@ -40,3 +40,6 @@ Layout/ExtraSpacing:
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+
+Performance/RedundantBlockCall:
+    Enabled: false
