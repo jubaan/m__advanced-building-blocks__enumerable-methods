@@ -68,9 +68,35 @@ module Enumerable
     elsif args.nil?
       my_each { |item| count += 1 if self[item] }
     else
-      size.times { |item| count +=1 if args === self[item] }
+      size.times { |item| count += 1 if args === self[item] }
       to_enum
     end
     swap
+  end
+
+  def my_inject(accumulator = nil, operator = nil)
+    if !block_given? or operator.nil?
+      if operator.nil?
+        operator = accumulator
+        accumulator = nil
+      end
+      operator = operator.to_sym
+      my_each do |item|
+        accumulator = if accumulator.nil?
+                        item
+                      else
+                        accumulator.__send__(operator, item)
+                      end
+      end
+    else
+      each do |item|
+        accumulator = if accumulator.nil?
+                        self[item]
+                      else
+                        yield(accumulator, self[item])
+                      end
+      end
+    end
+    accumulator
   end
 end
