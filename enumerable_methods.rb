@@ -75,15 +75,15 @@ module Enumerable
   end
 
   def my_inject(accumulator = nil, operator = nil, &block)
-    if !block or operator.nil?
+    if !block
       if operator.nil?
         operator = accumulator
         accumulator = nil
       end
-      operator = operator.to_sym
-      my_each { |item| accumulator = accumulator.nil? ? item : accumulator.__send__(operator, item) }
+      operator.to_sym
+      each { |item| accumulator = accumulator.nil? ? item : accumulator.send(operator, item) }
     else
-      my_each { |item| accumulator = accumulator.nil? ? item : block.call(accumulator, item) }
+      each { |item| accumulator = accumulator.nil? ? item : block.call(accumulator, item) }
     end
     accumulator
   end
