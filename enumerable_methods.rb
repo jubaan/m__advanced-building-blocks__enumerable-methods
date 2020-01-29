@@ -71,7 +71,7 @@ module Enumerable
       my_each { |item| count += 1 if args === item }
       to_enum
     end
-    swap
+    count
   end
 
   def my_inject(accumulator = nil, operator = nil, &block)
