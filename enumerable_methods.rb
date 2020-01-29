@@ -61,7 +61,7 @@ module Enumerable
     swap
   end
 
-  def my_count(args = nilm, &block)
+  def my_count(args = nil, &block)
     count = 0
     if block_given?
       my_each { |item| count += 1 if block.call(item) }
