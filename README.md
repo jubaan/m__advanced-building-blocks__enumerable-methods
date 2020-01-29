@@ -6,7 +6,7 @@ This project was very challenging for my. I read a lot to come up with this solu
 
 > I used too methods, 1) yield and 2) procs and blocks
 
-![screenshot](./app_screenshot.png)
+![screenshot](./img/enumerable-methods.png)
 
 Additional description about the project and its features.
 
