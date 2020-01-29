@@ -35,9 +35,6 @@ Style/FrozenStringLiteralComment:
 Style/CaseEquality:
   Enabled: false
 
-Performance/RedundantBlockCall:
-  Enabled: false
-
 Layout/ExtraSpacing:
   AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
