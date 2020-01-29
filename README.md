@@ -4,6 +4,8 @@
 
 This project was very challenging for my. I read a lot to come up with this solution, this is what worked for me, but I was also found at least 5 other ways to solve this exercise.
 
+> I used too methods, 1) yield and 2) procs and blocks
+
 ![screenshot](./app_screenshot.png)
 
 Additional description about the project and its features.
