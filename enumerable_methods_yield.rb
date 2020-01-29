@@ -81,21 +81,9 @@ module Enumerable
         accumulator = nil
       end
       operator = operator.to_sym
-      my_each do |item|
-        accumulator = if accumulator.nil?
-                        item
-                      else
-                        accumulator.__send__(operator, item)
-                      end
-      end
+      my_each { |item| accumulator = accumulator.nil? ? item : accumulator.__send__(operator, item) }
     else
-      each do |item|
-        accumulator = if accumulator.nil?
-                        self[item]
-                      else
-                        yield(accumulator, self[item])
-                      end
-      end
+      each { |item| accumulator = accumulator.nil? ? self[item] : yield(accumulator, self[item]) }
     end
     accumulator
   end
