@@ -17,6 +17,8 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   ExcludedMethods: ["describe"]
   Max: 30
+Metrics/PerceivedComplexity:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
@@ -34,8 +36,6 @@ Style/CaseEquality:
   Enabled: false
 
 Performance/RedundantBlockCall:
-  Enabled: false
-Metrics/PerceivedComplexity:
   Enabled: false
 
 Layout/ExtraSpacing:
