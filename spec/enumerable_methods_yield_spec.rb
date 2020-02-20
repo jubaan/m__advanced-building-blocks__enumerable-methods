@@ -15,12 +15,18 @@ RSpec.describe 'Enumerable' do
 
     describe '.my_each' do
       it 'with block' do
-        expect(enum.each.to_a).to eql([:a, :x, []])
+        expect(enum.my_each.to_a).to eql([:a, :x, []])
       end
 
       it 'no block and no arguments given' do
-        expect(enum.each).to eql(enum)
+        expect(enum.my_each.equal?(enum)).to eql(true)
       end
+
+      # it 'block given' do
+      #   expect(enum.my_each { |elm| elm }).to eql(:method_returned)
+      # end
+
+
       # it 'without block'
       # it 'with args'
       # it 'without args'
@@ -55,6 +61,6 @@ RSpec.describe 'Enumerable' do
     end
 
     describe '.my_inject' do
-      
+
     end
 end
